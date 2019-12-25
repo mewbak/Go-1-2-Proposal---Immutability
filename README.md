@@ -280,7 +280,7 @@ of its original author and answers all critical questions reliably:
 - Will it mutate any `T` referenced by any item of `v`?
     - **No, it can't. The `T`s referenced by any item of `v` are immutable**
 - Is the `T` referenced by `rv` allowed to be mutated?
-	- **No, it's not. The `T` referenced by `a` is immutable**
+	- **No, it's not. The `T` referenced by `rv` is immutable**
 - Will it mutate the `T` referenced by `b`?
 	- **Yes, it potentially will!**
 - Is the `T` referenced by `rv2` allowed to be mutated?
@@ -1616,10 +1616,10 @@ func (rec * const T) OurMethod(
 ```
 
 If you don't like the rather verbose type definitions then consider using type
-aliasing to shorten the code even more:
+aliasing to shorten the code:
 
 ```go
-type ConstSlice const [] * const Object
+type ConstSlice = const [] * const Object
 
 func (rec * const T) OurMethod(s ConstSlice) ConstSlice {
   thirdparty.Dependency(s)
@@ -1778,7 +1778,6 @@ current proposal but still has some significant differences.
 #### 5.2.2. Differences
 - "Immutability" is called "read-only type permissions" while constants are
   called "immutables".
-- Proposes implicit *mutable to immutable* type conversion by default.
 
 #### 5.2.3. Similarities
 - The proposed `ro` qualifier is part of the type definition just as the `const`
